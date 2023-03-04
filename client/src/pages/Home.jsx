@@ -7,16 +7,18 @@ import { BiCog, BiDownload, BiLeftArrowAlt, BiExpand, BiCollapse } from "react-i
 import { FaChevronCircleLeft, FaChevronCircleRight} from "react-icons/fa";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { HomeCertificates } from "../constants/Home.data"
-
 // Preevent right clicks events
 import DisableRightClick from '../components/maincomps/DisableRightClickAndScreenshot'
+// Import certificate data
+import { DataCertificates } from '../constants/Certificates.data'
+
 
 const Home = ({ darkmode }) => {
   const[certificates, setCertificates] = useState(false)
   const[singlecertpage, setSinglecertpage] = useState(false)
   const[certcode, setCertcode] = useState(false)
   const[phoneauthentication, setPhoneauthentication] = useState('')
+  const[certcount, setCertcount] = useState(0)
 
 
   // Open certificate
@@ -30,7 +32,8 @@ const Home = ({ darkmode }) => {
   }
 
   // Open certificate view page
-  const openCertviewpage = () => {
+  const openCertviewpage = (id) => {
+    setCertcount(id)
     setSinglecertpage(!singlecertpage)
   }
 
@@ -41,12 +44,12 @@ const Home = ({ darkmode }) => {
 
   // Certificate navigation Prev Button
   const certPreviewButton = () => {
-    alert("Preview certificates")
+      certcount > 0 ? setCertcount(certcount - 1) : setCertcount(DataCertificates.length - 1)
   }
 
   // Cert Next Button
   const certNextButton = () => {
-    alert("Next certificate")
+    certcount < DataCertificates.length - 1 ? setCertcount(certcount + 1) : setCertcount(0)
   }
 
 
@@ -57,6 +60,7 @@ const Home = ({ darkmode }) => {
       <CertViewContainer>
         <div className='TopSection'>
           <h1 style={{color: darkmode !== "light" ? "black" : "white"}}>Certficate Reviews</h1>
+          <p style={{color: darkmode !== "light" ? "black" : "white", fontSize: "1rem"}}>{DataCertificates[certcount].certName}</p>
           <div  className='Colapse'>
            <BiCollapse color={darkmode !== "light" ? "black" : "white"} size={30} onClick={openCertviewpage}/>
           </div>
@@ -69,7 +73,7 @@ const Home = ({ darkmode }) => {
           </div>
           
           <div className='CertImage'>
-          <img src={process.env.PUBLIC_URL+'/images/logo/mylogo.png'} alt='Logo'/>
+             <img src={DataCertificates[certcount].certImage} alt='Logo'/>
           </div>
 
           <div className='Actioncertbutton right'>
@@ -78,6 +82,9 @@ const Home = ({ darkmode }) => {
           </div>
         </div>
         <div className='Certfoooter'>
+         <p style={{color: darkmode !== "light" ? "black" : "white", fontSize: "1rem", marginRight: "1rem"}}>
+          {`${certcount === 0 ? "1" : certcount + 1} / ${DataCertificates.length}`}
+          </p>
          <BiDownload size={30} color={darkmode !== "light" ? "black" : "white"} onClick={handleCertdownload}/>
          {!certcode ? <p style={{color: darkmode !== "light" ? "black" : "white", paddingLeft: "1rem"}}>Download</p> 
          : 
@@ -133,18 +140,19 @@ const Home = ({ darkmode }) => {
             <CertificatesCenter data-aos="zoom-in" data-aos-offset="0">
             <div className='TopCertisfaction'>
               <Button onClick={() => {setCertificates(false)}} bg='green' clr='white'><BiLeftArrowAlt size={20}/> Back</Button>
-              <p>My Certificates Page</p>
+              <p>My Certificates ({DataCertificates.length})</p>
               <BiCog size={30} color={darkmode === "dark" ? "white" : "black"}/>
             </div>
             {/* Display image */}
             <div className='Imagecontainer'>
-              {HomeCertificates.map((cert) => {
-                return  <div className='SingleCertImage'>
-                  <p style={{color: darkmode !== "light" ? "black" : "white", fontSize: "1rem"}}>From: {cert.from}</p>
-                  <img src={cert.image} height="100%" width="100%" alt={cert.id}/>
+              {DataCertificates.map((cert, key) => {
+                return  <div className='SingleCertImage' key={key}>
+                  <p style={{color: darkmode !== "light" ? "black" : "white", fontSize: "1rem"}}>From: {cert.certFrom}</p>
+                  <img src={cert.certImage} height="100%" width="100%" alt={cert.id}/>
                   <div className='CertDownload'>
-                    <p style={{color: darkmode !== "light" ? "black" : "white"}}>Date: 12/02/2023</p>
-                    <div className='Expand'><BiExpand size={25} color={darkmode !== "light" ? "black" : "white"} onClick={openCertviewpage}/></div>
+                    <p style={{color: darkmode !== "light" ? "black" : "white"}}>Date: {cert.certDate}</p>
+                    <div className='Expand'><BiExpand size={25} color={darkmode !== "light" ? "black" : "white"} 
+                    onClick={() => openCertviewpage(key)}/></div>
                   </div>
                 </div>
               })}

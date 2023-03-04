@@ -341,7 +341,7 @@ export const CertViewContainer = styled.div`
     border-top: ${({theme}) => theme.colors.border};
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 1rem .2rem;
     cursor: pointer;
 
