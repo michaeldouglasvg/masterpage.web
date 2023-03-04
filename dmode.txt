@@ -1,0 +1,58 @@
+Implementing dark mode with local storage in a React function component can be done in a few steps:
+
+Step 1: Set up a state variable to track the current mode (light or dark). You can use the useState hook to create a state variable, and initialize it to either 'light' or 'dark' based on whether a value has been saved in local storage.
+
+javascript
+Copy code
+import { useState, useEffect } from 'react';
+
+function App() {
+  const [mode, setMode] = useState(() => localStorage.getItem('mode') || 'light');
+  ...
+}
+Step 2: Create a function that will toggle the mode between light and dark, and save the new mode in local storage. You can use the useEffect hook to update the mode in local storage whenever it changes.
+
+javascript
+Copy code
+function toggleMode() {
+  const newMode = mode === 'light' ? 'dark' : 'light';
+  setMode(newMode);
+  localStorage.setItem('mode', newMode);
+}
+
+useEffect(() => {
+  localStorage.setItem('mode', mode);
+}, [mode]);
+Step 3: Add a class to the body element of your page based on the current mode. This will allow you to change the CSS styles for different modes.
+
+scss
+Copy code
+useEffect(() => {
+  document.body.classList.add(mode);
+  return () => {
+    document.body.classList.remove(mode);
+  };
+}, [mode]);
+Step 4: Update your CSS styles to use classes that correspond to the light and dark modes. You can use the :root selector to set variables for common styles that will be used in both modes, and then use the body.light and body.dark selectors to override specific styles for each mode.
+
+css
+Copy code
+:root {
+  --background-color: #fff;
+  --text-color: #333;
+}
+
+body.light {
+  --background-color: #fff;
+  --text-color: #333;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+body.dark {
+  --background-color: #333;
+  --text-color: #fff;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+With these steps completed, you should now have a working dark mode feature that will save the current mode in local storage and apply the appropriate styles to your page. When the user toggles the mode, the new mode will be saved in local storage and the styles will be updated accordingly.
