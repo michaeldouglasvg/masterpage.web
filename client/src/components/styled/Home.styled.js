@@ -18,11 +18,35 @@ export const ImageContainer = styled.div`
  display: flex;
  justify-content: center;
  align-items: center;
+ position: relative;
+ &::before{
+  content: '';
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 1rem;
+  right: 6rem;
+  background: gold;
+  border-radius: 50px 50px 50px 0;
+  z-index: -10;
+ }
+ &::after{
+  content: '';
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  bottom: 1rem;
+  right: 6rem;
+  background: skyblue;
+  border-radius: 0 50px 50px 50px;
+  z-index: -10;
+ }
 
  & > img {
   width: 70%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: 50% 50% 50% 0;
+  z-index: 10;
  }
  @media (min-width: ${({theme}) => theme.responsive.mobilesm}){
     height: 65%;
@@ -160,7 +184,7 @@ export const CertificatesCenter = styled.div`
     width: 100%;
     padding: .6rem .6rem;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
     grid-gap: 1rem;
     place-items: center;
     margin-top: 1rem;
@@ -176,6 +200,10 @@ export const CertificatesCenter = styled.div`
       position: relative;
       box-shadow: ${({theme}) => theme.colors.boxshadow};
       border-radius: 3px;
+
+      & > img{
+        cursor: pointer;
+      }
 
       & > p{
         padding: .5rem .6rem;
@@ -243,16 +271,16 @@ export const CertViewContainer = styled.div`
   border-radius: 5px;
   background: ${({theme}) => theme.colors.transparent};
   @media (min-width: ${({theme}) => theme.responsive.mobilesm}){
-    width: 80%;
+    width: 75%;
     margin: 1rem auto;
      height: 90vh;
      padding: 1rem 1rem;
   }
   @media (min-width: ${({theme}) => theme.responsive.mobilemd}){
-    width: 70%;
+    width: 40%;
     margin: 4rem auto;
-    height: 70vh;
-    padding: 1rem 2rem;
+    height: 72vh;
+    padding: 1rem 1.4rem;
   }
 
   & .TopSection{

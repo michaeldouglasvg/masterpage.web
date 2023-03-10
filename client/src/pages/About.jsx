@@ -7,34 +7,48 @@ import { FaFacebook, FaTwitter, FaWhatsapp, FaInstagram, FaGithub, FaLinkedin } 
 // AOS animations
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-// Slider
-// import Slider from 'react-animated-slider';
-// import 'react-animated-slider/build/horizontal.css';
+
+// Project data
+// import { Projectsdisplaydata } from "../constants/About.data"
+
 
 const Projects = () => {
+  // const[imagetimeout, setTimeout] = useState(0)
   
-
   // AOS animation
   useEffect(() => {
     AOS.init();
   }, [])
+
+  // // Loader functionality
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setTimeout(imagetimeout + 1)
+  //   }, 2000);
+
+  //   return () => clearInterval(interval);
+  // }, [imagetimeout]);
+
   return (
     <AboutMainStyled>
       <div className='Titleheader' data-aos="zoom-in"><h1>About (Technologies)</h1></div>
       <GridGlobal>
 
        <DisplayLeft data-aos="fade-up">
+
+      
         <CardGlobal data-aos="fade-up">
-         <div className='CardTitle'>
-          <p>UI/UX Designer</p>
-         </div>
-         <div className='CardImage'>
-          <img src={process.env.PUBLIC_URL+'/images/logo/mylogo.png'} alt='Profile'/>
-         </div>
-         <div className='CardProjects'>
-          <p>Projects (5)</p>
-         </div>
+          <div className='CardTitle'>
+            <p>UI/UX Designer</p>
+          </div>
+          <div className='CardImage'> 
+            <img src={process.env.PUBLIC_URL+'/images/logo/mylogo.png'} alt='Profile'/>
+          </div>
+          <div className='CardProjects'>
+            <p>Projects (5)</p>
+          </div>
         </CardGlobal>
+
         <CardGlobal data-aos="fade-up">
          <div className='CardLinks'>
           <div><FaFacebook size={30} color='blue'/></div>
@@ -83,16 +97,13 @@ const Projects = () => {
         
         {/* Languages display */}
         <CardGlobal data-aos="fade-up">
-        <div className='CardLanguages'>
+        <div className='CardLanguages' style={{ width: '100%' }}>
+
           <div data-aos="zoom-in">
             <p>Image</p>
             <p>20%</p>
           </div>
-          <div data-aos="zoom-in">
-             <p>Image</p>
-            <p>20%</p>
-          </div>
-          
+
          </div>
         </CardGlobal>
        </ProgrammingJourney>

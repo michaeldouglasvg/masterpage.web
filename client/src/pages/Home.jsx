@@ -28,6 +28,7 @@ const Home = ({ darkmode }) => {
 
   // Certificate download function
   const handleCertdownload = () => {
+    alert("From: GtechAmourdevelopers.com\n\nWelcome again, Download need to access your phone number for sending download code, Please NOTE that you can NOT download any certificate without the download access code {DAC}.\n\nThank you for visiting My Certificate page.");
     setCertcode(!certcode)
   }
 
@@ -40,6 +41,10 @@ const Home = ({ darkmode }) => {
   // Check if phone number not empty
   const checkphonenumber = (event) => {
     setPhoneauthentication(event.target.value)
+
+    if(phoneauthentication.length === 9){
+      alert("From: GtechAmourdevelopers.com\n\nSory!!! functionality under maintainance. Your phone number is used to send download access code {DAC} only NOT for other purposes when using this site. I value your Privacy.\n\nThank you for attempting to download.");
+    }
   }
 
   // Certificate navigation Prev Button
@@ -57,10 +62,11 @@ const Home = ({ darkmode }) => {
   function showCertificatview() {
     return <CertificateDisplay>
 
-      <CertViewContainer>
+      <CertViewContainer data-aos="zoom-in">
         <div className='TopSection'>
-          <h1 style={{color: darkmode !== "light" ? "black" : "white"}}>Certficate Reviews</h1>
-          <p style={{color: darkmode !== "light" ? "black" : "white", fontSize: "1rem"}}>{DataCertificates[certcount].certName}</p>
+          <p style={{color: darkmode !== "light" ? "black" : "white", fontSize: "1rem", fontWeight: 500}}>
+            Showing Result ({certcount === 0 ? "1" : certcount + 1}): <span style={{color: "skyblue"}}>{DataCertificates[certcount].certName}</span>
+          </p>
           <div  className='Colapse'>
            <BiCollapse color={darkmode !== "light" ? "black" : "white"} size={30} onClick={openCertviewpage}/>
           </div>
@@ -82,7 +88,7 @@ const Home = ({ darkmode }) => {
           </div>
         </div>
         <div className='Certfoooter'>
-         <p style={{color: darkmode !== "light" ? "black" : "white", fontSize: "1rem", marginRight: "1rem"}}>
+         <p style={{color: darkmode !== "light" ? "black" : "white", fontSize: "1rem", marginRight: "1rem", fontWeight: 600}}>
           {`${certcount === 0 ? "1" : certcount + 1} / ${DataCertificates.length}`}
           </p>
          <BiDownload size={30} color={darkmode !== "light" ? "black" : "white"} onClick={handleCertdownload}/>
@@ -148,9 +154,9 @@ const Home = ({ darkmode }) => {
               {DataCertificates.map((cert, key) => {
                 return  <div className='SingleCertImage' key={key}>
                   <p style={{color: darkmode !== "light" ? "black" : "white", fontSize: "1rem"}}>From: {cert.certFrom}</p>
-                  <img src={cert.certImage} height="100%" width="100%" alt={cert.id}/>
+                  <img src={cert.certImage} height="100%" width="100%" alt={cert.id}  onClick={() => openCertviewpage(key)}/>
                   <div className='CertDownload'>
-                    <p style={{color: darkmode !== "light" ? "black" : "white"}}>Date: {cert.certDate}</p>
+                    <p style={{color: darkmode !== "light" ? "black" : "white"}}>{cert.certDate}</p>
                     <div className='Expand'><BiExpand size={25} color={darkmode !== "light" ? "black" : "white"} 
                     onClick={() => openCertviewpage(key)}/></div>
                   </div>
