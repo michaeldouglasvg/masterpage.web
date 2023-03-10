@@ -12,7 +12,6 @@ function DisableRightClick({ children }) {
         icon: 'warning',
         confirmButtonText: 'Thank you'
       })
-      // alert("From: GtechAmourdevelopers.com\n\nSorry user!!! 🖱️ Drag & Drop and Right-clicking are strictly prohibited on this site. Kindly requesting that you refrain from using these actions due to security measures that protect the integrity and confidentiality of my website's digital certificate.\n\nThank you for visiting this page and for respecting my website's security protocols.");
     };
 
     const handleDragStart = (event) => {
